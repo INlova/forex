@@ -16,9 +16,12 @@ export default class Converter extends React.Component {
     this.setCurrencies();
   }
 
+  handleCurrencyClick = (selectedCurrency, selectorType) => {
+    console.log('selectedCurrency', selectedCurrency, selectorType)
+  }
+
   setCurrencies = () => {
     fetchRates().then((response) => {
-      console.log(response, 'res')
       this.setState({
         currencies: Object.keys(response.data.rates)
       })
@@ -30,13 +33,10 @@ export default class Converter extends React.Component {
   }
 
   render() {
-    console.log('currencies', this.state.currencies)
-    return (
-      <div>
-        <CurrencySelector currencies={this.state.currencies} handleCurencyClick={this.handleCurencyClick} />
+    return <div>
+        <CurrencySelector currencies={this.state.currencies} handleCurrencyClick={this.handleCurrencyClick} selector={'from'} />
         <ConversionDisplay rate={this.state.rate} />
-        <CurrencySelector currencies={this.state.currencies} handleCurencyClick={this.handleCurencyClick} />
-      </div>
-    );
+        <CurrencySelector currencies={this.state.currencies} handleCurrencyClick={this.handleCurrencyClick} selector={'to'} />
+      </div>;
   }
 }

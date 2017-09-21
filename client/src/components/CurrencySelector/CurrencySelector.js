@@ -2,15 +2,22 @@ import React from 'react';
 
 
 export default class CurrencySelector extends React.Component {
+
+  handleCurrencyClick = (event) => {
+    this.props.handleCurrencyClick(event.target.value, this.props.selector);
+  }
+
   render() {
     return (
-      <select className="ui dropdown">
+      <select className="ui dropdown" onChange={this.handleCurrencyClick}>
         {
-        this.props.currencies.map((currency, idx) =>
-          <option value="" key={idx} onClick={this.props.handleCurrencyClick}>{currency}</option>
-        )
+          this.props.currencies.map(currency => (
+          <option key={currency} name={currency} value={currency}>
+            {currency}
+          </option>
+        ))
       }
       </select>
-    )
+    );
   }
 }
