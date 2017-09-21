@@ -33,10 +33,10 @@ export default class Converter extends React.Component {
     console.log('currencies', this.state.currencies)
     return (
       <div>
-        <CurrencySelector currencies={this.state.currencies}/>
-        <ConversionDisplay rate={this.state.rate}/>
-        <CurrencySelector currencies={this.state.currencies}/>
+        <CurrencySelector currencies={this.state.currencies} handleCurencyClick={this.handleCurencyClick} />
+        <ConversionDisplay rate={this.state.rate} />
+        <CurrencySelector currencies={this.state.currencies} handleCurencyClick={this.handleCurencyClick} />
       </div>
-    )
+    );
   }
 }
