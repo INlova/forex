@@ -8,7 +8,7 @@ export default class Converter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currencies: [], error: '', rate: '', 
+      currencies: [], error: '', rate: '', from: 'AUD', to: 'AUD' 
     }
   }
 
@@ -17,19 +17,37 @@ export default class Converter extends React.Component {
   }
 
   handleCurrencyClick = (selectedCurrency, selectorType) => {
-    let currencyMap = { from: 'AUD', to: 'AUD' }
+    let currencyMap = { }
     if (selectorType === 'from') {
-      currencyMap['from'] = selectedCurrency
-    } else {
+      currencyMap['from'] = selectedCurrency;
+      this.setState({
+        from: selectedCurrency
+      })
+    } if (selectorType === 'to') {
       currencyMap['to'] = selectedCurrency;
+      this.setState({
+        to: selectedCurrency
+      })
+    } if (selectorType !== 'from') {
+      currencyMap['from'] = this.state.from
+    } if (selectorType !== 'to') {
+      currencyMap['to'] = this.state.to
+    } if (currencyMap.to === currencyMap.from) {
+      currencyMap['rate'] = 1
     }
+    console.log('map', currencyMap)
 
-    fetchRates(currencyMap.from).then(response => {
-      let toCurrency = currencyMap.to;
-      let rate = `${response.data.rates[toCurrency]}`;
-      console.log(response.data)
-      this.setState({ rate });
-    });
+    if (currencyMap.rate !== 1) {
+      fetchRates(currencyMap.from).then(response => {
+        let toCurrency = currencyMap.to;
+        let rate = `${response.data.rates[toCurrency]}`;
+        console.log(response.data);
+        this.setState({ rate });
+      });
+    } else {
+      this.setState({ rate: 1})
+    }
+    
   }
 
   getConversion = () => {
