@@ -12,5 +12,3 @@ function fetchRates(fromCurrency = 'USD') {
 }
 
 export default fetchRates
-
-// console.log(fetchRates().then((response) => console.log(response)))

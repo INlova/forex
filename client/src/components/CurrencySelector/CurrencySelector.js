@@ -12,7 +12,7 @@ export default class CurrencySelector extends React.Component {
       <select className="ui dropdown" onChange={this.handleCurrencyClick}>
         {
           this.props.currencies.map(currency => (
-          <option key={currency} name={currency} value={currency}>
+          <option key={currency} value={currency}>
             {currency}
           </option>
         ))
